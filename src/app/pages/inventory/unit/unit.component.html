@@ -1,0 +1,80 @@
+<div class="card">
+    <div class="container">
+        <div class="panel-group">
+            <form [formGroup]="unitForm" (ngSubmit)="onSubmit()">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Unit</div>
+                    <div class="panel-body">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="unitName">Unit Name</label><span class="required">*</span>
+                                <input #unit type="text" formControlName="unitName" class="form-control" id="unitName"
+                                    name="unitName" [ngClass]="{ 'is-invalid': submitted && f.unitName.errors }"
+                                    placeholder="unit name" maxlength="50" />
+                                <div *ngIf="submitted && f.unitName.errors" class="invalid-feedback">
+                                    <div *ngIf="f.unitName.errors.required">Unit Name is required</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="unitCode">Unit Code</label><span class="required">*</span>
+                                <input type="text" formControlName="unitCode" class="form-control" id="unitCode"
+                                    name="unitCode" [ngClass]="{ 'is-invalid': submitted && f.unitCode.errors }"
+                                    placeholder="unit code" maxlength="10" title="Short Name" />
+                                <div *ngIf="submitted && f.unitCode.errors" class="invalid-feedback">
+                                    <div *ngIf="f.unitCode.errors.required">Unit Code is required</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="decimalPlaces">Decimal Places</label><span class="required">*</span>
+                                <input numeric decimals="2"  type="text" formControlName="decimalPlaces" class="form-control"
+                                    id="decimalPlaces" name="decimalPlaces"
+                                    [ngClass]="{ 'is-invalid': submitted && f.decimalPlaces.errors }"
+                                    placeholder="decimal places" title="Short Name" />
+                                <div *ngIf="submitted && f.decimalPlaces.errors" class="invalid-feedback">
+                                    <div *ngIf="f.decimalPlaces.errors.required">Decimal Places is required</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="conversionFactor">Conversion Factor</label><span class="required">*</span>
+                                <input numeric decimals="2" type="text" formControlName="conversionFactor" class="form-control"
+                                    id="conversionFactor" name="conversionFactor"
+                                    [ngClass]="{ 'is-invalid': submitted && f.conversionFactor.errors }"
+                                    placeholder="conversion factor" title="Short Name" />
+                                <div *ngIf="submitted && f.conversionFactor.errors" class="invalid-feedback">
+                                    <div *ngIf="f.conversionFactor.errors.required">Conversion Factor is required</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="isActiveTrue" class="form-check-label" style="padding-right: 10px;">
+                                    <input id="isActiveTrue" type="radio" formControlName="isActive" [value]="true"
+                                        checked="isActive === true">Active
+                                </label>
+                                <label for="isActiveFalse" class="form-check-label">
+                                    <input id="isActiveFalse" type="radio" formControlName="isActive" [value]="false"
+                                        checked="isActive === false">In-Active
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <button [disabled]="loading" class="btn btn-primary">Save</button>
+                                <a (click)="clearItem()" class="btn btn-link">Clear</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="panel-group">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Unit List</div>
+                <div class="panel-body">
+                    <div class="col-md-9">
+                        <ag-grid-angular #agGrid style="height: 300px; padding-bottom: 10px" class="ag-theme-balham"
+                            [rowData]="rowData" [columnDefs]="columnDefs" [rowSelection]="rowSelection"
+                            (selectionChanged)="onSelectionChanged($event)" (gridReady)="onGridReady($event)">
+                        </ag-grid-angular>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

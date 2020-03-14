@@ -1,0 +1,126 @@
+<div class="card">
+    <div class="container">
+        <div class="panel-group">
+            <form [formGroup]="installmentForm" (ngSubmit)="onSubmit()">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Installment</div>
+                    <div class="panel-body">
+                        <div class="col-md-6">
+                            <app-lookup frmControlName="installmentType"
+                                [formAttribute]="lookupAttribute.installmentType"
+                                [lookupForm]="installmentForm.get('lookupForm')" [submitted]="submitted"
+                                [options]="options.installmentTypes" [isRequired]="true">
+                            </app-lookup>
+                        </div>
+                        <div class="col-md-6">
+                            <app-lookup frmControlName="installmentPlan"
+                                [formAttribute]="lookupAttribute.InstallmentPlan"
+                                [lookupForm]="installmentForm.get('lookupForm')" [submitted]="submitted"
+                                [options]="options.installmentPlans" [isRequired]="true">
+                            </app-lookup>
+                        </div>
+                        <div class="col-md-6">
+                            <app-lookup frmControlName="fromMonth" [formAttribute]="lookupAttribute.fromMonth"
+                                [lookupForm]="installmentForm.get('lookupForm')" [submitted]="submitted"
+                                [options]="options.months" [isRequired]="true">
+                            </app-lookup>
+                        </div>
+                        <div class="col-md-6">
+                            <app-lookup frmControlName="toMonth" [formAttribute]="lookupAttribute.toMonth"
+                                [lookupForm]="installmentForm.get('lookupForm')" [submitted]="submitted"
+                                [options]="options.months" [isRequired]="true">
+                            </app-lookup>
+                        </div>                       
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="fromDate">From Date</label><span class="required">*</span>
+                                <ng2-flatpickr #fromPicker placeholder="From Date" formControlName="fromDate"
+                                    [config]="fromDateOptions"></ng2-flatpickr>
+                                <div *ngIf="submitted && f.fromDate.errors" class="invalid-feedback"
+                                    style="display: block !important">
+                                    <div *ngIf="f.fromDate.errors.required">From Date is required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="toDate">To Date</label><span class="required">*</span>
+                                <ng2-flatpickr #toDatePicker placeholder="To Date" formControlName="toDate"
+                                    [config]="toDateOptions"></ng2-flatpickr>
+                                <div *ngIf="submitted && f.toDate.errors" class="invalid-feedback"
+                                    style="display: block !important">
+                                    <div *ngIf="f.toDate.errors.required">To Date is required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="feeSubmitDate">Fee Submit Date</label><span class="required">*</span>
+                                <ng2-flatpickr #feeSubmitPicker placeholder="Fee Submit Date"
+                                    formControlName="feeSubmitDate" [config]="feeSubmitDateOptions"></ng2-flatpickr>
+                                <div *ngIf="submitted && f.toDate.errors" class="invalid-feedback"
+                                    style="display: block !important">
+                                    <div *ngIf="f.feeSubmitDate.errors.required">Fee Submit Date is required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="dueDate">Due Date</label><span class="required">*</span>
+                                <ng2-flatpickr #dueDatePicker placeholder="Due Date" formControlName="dueDate"
+                                    [config]="dueDateOptions"></ng2-flatpickr>
+                                <div *ngIf="submitted && f.dueDate.errors" class="invalid-feedback" style="display: block !important">
+                                    <div *ngIf="f.dueDate.errors.required">Due Date is required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="instName">Name</label><span class="required">*</span>
+                                <input type="text" formControlName="instName" class="form-control" id="instName"
+                                    name="instName" [ngClass]="{ 'is-invalid': submitted && f.instName.errors }"
+                                    placeholder="Name" maxlength="50" />
+                                <div *ngIf="submitted && f.instName.errors" class="invalid-feedback"
+                                    style="display: block !important">
+                                    <div *ngIf="f.instName.errors.required">Name is required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="isActiveTrue" class="form-check-label" style="padding-right: 10px;">
+                                    <input id="isActiveTrue" type="radio" formControlName="isActive" [value]="true"
+                                        checked="isActive === true">Active
+                                </label>
+                                <label for="isActiveFalse" class="form-check-label">
+                                    <input id="isActiveFalse" type="radio" formControlName="isActive" [value]="false"
+                                        checked="isActive === false">In-Active
+                                </label>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group" style="float: right !important;">
+                                <button [disabled]="loading" class="btn btn-primary">Save</button>
+                                <a (click)="clearItem()" class="btn btn-link">Clear</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="panel-group">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Installment</div>
+                <div class="panel-body">
+                    <div class="col-md-12">
+                        <ag-grid-angular #agGrid style="height: 300px; padding-bottom: 10px" class="ag-theme-balham"
+                            [rowData]="rowData" [columnDefs]="columnDefs" [rowSelection]="rowSelection"
+                            (selectionChanged)="onSelectionChanged($event)" (gridReady)="onGridReady($event)">
+                        </ag-grid-angular>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

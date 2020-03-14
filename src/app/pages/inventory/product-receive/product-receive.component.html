@@ -1,0 +1,299 @@
+<div class="card">
+    <div class="container">
+        <div class="panel-group">         
+            <div class="row">
+                <div class="column1">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">Product Detail</div>
+                        <div class="panel-body">
+                            <div class="col-md-12">
+                                <form [formGroup]="productAddForm">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <app-lookup frmControlName="productId"
+                                                [formAttribute]="lookupAttribute.Product"
+                                                [lookupForm]="productAddForm.get('lookupForm')" [submitted]="submitted"
+                                                [options]="options.products" [isFocus]="true" [isRequired]="true"
+                                                (changeLookup)="changeProduct($event)">
+                                            </app-lookup>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="quantity">Quantity</label><span class="required">*</span>
+                                            <input #quantity numeric type="text" formControlName="quantity"
+                                                class="form-control" id="quantity" name="quantity" autocomplete="off"
+                                                [ngClass]="{ 'is-invalid': submitted && f.quantity.errors }"
+                                                placeholder="quantity" maxlength="50" (keyup.enter)="addProductItem()" />
+                                            <div *ngIf="submitted && f.quantity.errors" class="invalid-feedback">
+                                                <div *ngIf="f.quantity.errors.required">Quantity Name is required
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="Add"></label>
+                                            <button class="btn btn-primary" style="margin-top: 23px;"
+                                                (click)="addProductItem()">
+                                                <i class="fa fa-plus" aria-hidden="true"></i>Add Product</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="col-md-12">
+                                    <form [formGroup]="purchaseForm">
+                                        <div class="form-group" style="padding-left: 13px !important;">
+                                            <div class="panel panel-primary">
+                                                <div class="panel-heading">Items</div>
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                Product
+                                                            </th>
+                                                            <th style="width: 100px;">
+                                                                Unit
+                                                            </th>
+                                                            <th>
+                                                                Qty
+                                                            </th>
+                                                            <th>
+                                                                Price/Qty
+                                                            </th>
+                                                            <th>
+                                                                Amount
+                                                            </th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody formArrayName="productForm">
+                                                        <tr *ngFor="let row of productForm.controls; let i = index"
+                                                            formGroupName="{{i}}">
+                                                            <td><label>{{row.value.prodName}}</label></td>
+                                                            <td>
+                                                                <app-lookup frmControlName="unitId"
+                                                                    [formAttribute]="lookupAttribute.Unit"
+                                                                    [lookupForm]="purchaseForm.get('lookupPurchaseForm')"
+                                                                    [submitted]="submitted" [options]="options.units">
+                                                                </app-lookup>
+                                                            </td>
+                                                            <td>{{row.value.quantity}}</td>
+                                                            <td>{{row.value.salePrice}}</td>
+                                                            <td><label class="form-control" style="width: 80px;">{{row.value.amount}}</label>
+                                                            </td>
+                                                            <td>
+                                                                <button (click)="onRemoveRow(i)">
+                                                                    <i class="fa fa-trash-o"
+                                                                        style="font-size:15px;color:red"
+                                                                        aria-hidden="true"></i>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <tfoot *ngIf="productForm.length >0">
+                                                        <tr>
+                                                            <td></td>
+                                                            <td>Total Qty</td>
+                                                            <td>{{amounts.totalQuantity}}</td>
+                                                            <td>Net Amount</td>
+                                                            <td>{{amounts.netAmount}}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td>SGST%</td>
+                                                            <td>{{amounts.totalSGST}}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td>CGST%</td>
+                                                            <td>{{amounts.totalCGST}}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td>Total Amount</td>
+                                                            <td>{{amounts.totalAmount}}
+                                                            </td>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        </div>                                      
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column2">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">Payment Detail</div>
+                        <div class="panel-body">
+                            <form [formGroup]="vendorForm">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="venderMobNo">Mobile</label><span class="required">*</span>
+                                        <input numeric type="text" formControlName="venderMobNo"
+                                            class="form-control" id="mobile" name="mobile" autocomplete="off"
+                                            [ngClass]="{ 'is-invalid': submitted && f.venderMobNo.errors }"
+                                            placeholder="Mobile" maxlength="50" (keyup.enter)="searchVendor()" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group" style="padding-top: 22px;">
+                                        <button type="button" class="btn btn-primary"
+                                            (click)="searchVendor()">Search</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <form [formGroup]="paymentForm">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="quantity">Total Amount</label>
+                                        <label class="form-control">{{amounts.totalAmount}}</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="totalDiscount">Discount</label>
+                                        <input numeric decimals="2" type="text" formControlName="totalDiscount"
+                                            class="form-control" id="totalDiscount" name="totalDiscount" autocomplete="off"                                            
+                                            placeholder="Discount" maxlength="10" (keyup)="onDiscount()" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="paidAmount">Payble Amount</label><span class="required">*</span>
+                                        <input numeric decimal="2" type="text" formControlName="paidAmount"
+                                            class="form-control" id="paidAmount" name="paidAmount" autocomplete="off"
+                                            [ngClass]="{ 'is-invalid': submitted && f.quantity.errors }"
+                                            placeholder="Amount" maxlength="10" (keyup)="onReceive()"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="paidAmount">Total Dues</label>
+                                        <label class="form-control">{{amounts.totalDues}}</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <app-lookup frmControlName="paymentType"
+                                            [formAttribute]="lookupAttribute.PaymentType"
+                                            [lookupForm]="paymentForm.get('lookupForm')" [submitted]="submitted"
+                                            [options]="options.paymentTypes" [isRequired]="true">
+                                        </app-lookup>
+                                    </div>
+                                </div>  
+                                <div class="col-md-6">
+                                    <div class="form-group" style="padding-top: 22px;">
+                                        <button type="button" class="btn btn-primary"
+                                            (click)="saveAndPay()" [disabled]="setDisable()">Payment</button>
+                                    </div>
+                                </div>                             
+                            </form>
+                        </div>                       
+                    </div>
+                </div>
+            </div>           
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="card">
+    <div class="container">
+        <div class="panel-group">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Product</div>
+                <div class="panel-body">
+                    <form [formGroup]="prodReceiveForm" (ngSubmit)="addNewRow()">
+                        <div class="col-md-9">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <app-lookup frmControlName="productId" [formAttribute]="lookupAttribute.Product"
+                                    [lookupForm]="prodReceiveForm.get('lookupForm')" [submitted]="submitted"
+                                    [options]="options.products" [isFocus]="true" [isRequired]="true" (changeLookup)="changeProdType($event)">
+                                </app-lookup>
+                                </div>
+                            </div>                            
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="quantity">Quantity</label><span class="required">*</span>
+                                    <input numeric type="text" formControlName="quantity" class="form-control"
+                                        id="quantity" name="quantity" autocomplete="off"
+                                        [ngClass]="{ 'is-invalid': submitted && f.quantity.errors }"
+                                        placeholder="quantity" maxlength="50" />
+                                    <div *ngIf="submitted && f.quantity.errors" class="invalid-feedback">
+                                        <div *ngIf="f.quantity.errors.required">Quantity Name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="Add"></label>
+                                    <button class="btn btn-primary" style="margin-top: 23px;">
+                                        <i class="fas fa-plus-circle"></i>Add Product</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="col-md-9">
+                        <div class="form-group"></div>
+                        <table class="table">
+                            <thead>
+                                <tr>                                    
+                                    <td>Product</td>
+                                    <td>Unit</td>
+                                    <td>Qty</td>
+                                    <td>Amount</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of rowItems;let index = index;">                                   
+                                    <td>
+                                        <span>Laptop{{item.prodName}}</span>
+                                    </td>
+                                    <td>
+                                        <label class="form-control">{{item.unitId}}</label>
+                                    </td>
+                                    <td>
+                                        <label class="form-control">{{item.quantity}}</label>
+                                    </td>
+                                    <td>
+                                        <input numeric decimal="2" type="text" class="form-control" placeholder="Amount"
+                                            title="Amount" [(ngModel)]="item.amount"
+                                            [ngModelOptions]="{standalone: true}" />
+                                    </td>
+                                    <td>                                        
+                                        <button (click)="onRemoveRow(index)">Remove</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->

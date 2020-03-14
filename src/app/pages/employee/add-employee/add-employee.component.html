@@ -1,0 +1,254 @@
+<div class="card">
+  <div class="container">
+    <div class="panel-group">
+      <form [formGroup]="addEmployeeForm" (ngSubmit)="onSubmit()">
+        <div class="panel panel-primary">
+          <div class="panel-heading">Basic Info</div>
+          <div class="panel-body"> 
+            <div class="col-md-4">
+              <app-lookup frmControlName="employeeType" [formAttribute]="lookupAttribute.EmployeeType"
+                [lookupForm]="addEmployeeForm.get('lookupForm')" [submitted]="submitted" [options]="options.employeeType"
+                [isRequired]="true">
+              </app-lookup>
+            </div>
+            <div class="col-md-4">
+              <app-lookup frmControlName="degId" [formAttribute]="lookupAttribute.Designation"
+                [lookupForm]="addEmployeeForm.get('lookupForm')" [submitted]="submitted" [options]="options.designation"
+                [isFocus]="true" [isRequired]="true">
+              </app-lookup>
+            </div>           
+            <div class="col-md-4">
+              <app-lookup frmControlName="deptId" [formAttribute]="lookupAttribute.Department"
+                [lookupForm]="addEmployeeForm.get('lookupForm')" [submitted]="submitted" [options]="options.department"
+                [isRequired]="true">
+              </app-lookup>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="firstName">First Name</label><span class="required">*</span>
+                <input type="text" formControlName="firstName" class="form-control" id="firstName" name="firstName"
+                  [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" placeholder="First Name"
+                  maxlength="50" />
+                <span *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                  <span *ngIf="f.firstName.errors.required">First Name is required</span>
+                </span>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="middleName">Middle Name</label>
+                <input type="text" formControlName="middleName" class="form-control" id="middleName" name="middleName"
+                  [ngClass]="{ 'is-invalid': submitted && f.middleName.errors }" placeholder="Middle Name"
+                  maxlength="50" />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="lastName">Last Name</label><span class="required">*</span>
+                <input type="text" formControlName="lastName" class="form-control" id="lastName" name="lastName"
+                  [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" placeholder="Last Name" maxlength="50" />
+                <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                  <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="mobileNo">Mobile No</label>
+                <input numeric type="text" formControlName="mobileNo" class="form-control" id="mobileNo" name="mobileNo"
+                  [ngClass]="{ 'is-invalid': submitted && f.mobileNo.errors }" placeholder="mobile no" maxlength="10" />
+                <div *ngIf="submitted && f.mobileNo.errors" class="invalid-feedback">
+                  <div *ngIf="f.mobileNo.errors.required">Mobile No is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="aadharNo">Aadhar No</label>
+                <input numeric type="text" formControlName="aadharNo" class="form-control" id="aadharNo" name="aadharNo"
+                  [ngClass]="{ 'is-invalid': submitted && f.aadharNo.errors }" placeholder="aadhar no"
+                  maxlength="12" />
+                <div *ngIf="submitted && f.aadharNo.errors" class="invalid-feedback">
+                  <div *ngIf="f.aadharNo.errors.required">Aadhar No is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="dob">DOB</label><span class="required">*</span>
+                <ng2-flatpickr #dobPicker placeholder="dob" formControlName="dob" [config]="dobOptions"></ng2-flatpickr>
+                <div *ngIf="submitted && f.dob.errors" class="invalid-feedback" style="display: block !important">
+                  <div *ngIf="f.dob.errors.required">DOB is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <app-lookup frmControlName="gender" [formAttribute]="lookupAttribute.Gender"
+                [lookupForm]="addEmployeeForm.get('lookupForm')" [submitted]="submitted" [options]="options.gender"
+                [isRequired]="true">
+              </app-lookup>
+            </div>
+            <div class="col-md-4">
+              <app-lookup frmControlName="category" [formAttribute]="lookupAttribute.Category"
+                [lookupForm]="addEmployeeForm.get('lookupForm')" [options]="options.category" [submitted]="submitted"
+                [isRequired]="true">
+              </app-lookup>
+            </div>
+            <div class="col-md-4">
+              <app-lookup frmControlName="religion" [formAttribute]="lookupAttribute.Religion"
+                [lookupForm]="addEmployeeForm.get('lookupForm')" [options]="options.religion" [submitted]="submitted"
+                [isRequired]="true">
+              </app-lookup>
+            </div>           
+            <div class="col-md-4">
+              <app-lookup frmControlName="bloodGroup" [formAttribute]="lookupAttribute.BloodGroup"
+                [lookupForm]="addEmployeeForm.get('lookupForm')" [submitted]="submitted" [options]="options.bloodGroup"
+                >
+              </app-lookup>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="nationality">Nationality</label><span class="required">*</span>
+                <input type="text" formControlName="nationality" class="form-control" id="nationality" name="nationlity"
+                  [ngClass]="{ 'is-invalid': submitted && f.nationality.errors }" placeholder="nationality" maxlength="20"
+                  />
+                <div *ngIf="submitted && f.nationality.errors" class="invalid-feedback">
+                  <div *ngIf="f.nationality.errors.required">Nationality is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="doj">DOJ</label><span class="required">*</span>
+                <ng2-flatpickr #dojPicker placeholder="doj" formControlName="doj" [config]="dojOptions"></ng2-flatpickr>
+                <div *ngIf="submitted && f.doj.errors" class="invalid-feedback" style="display: block !important">
+                  <div *ngIf="f.doj.errors.required">DOJ is required</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-primary">
+          <div class="panel-heading">Other Info</div>
+          <div class="panel-body">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="fatherName">Father Name</label><span class="required">*</span>
+                <input type="text" formControlName="fatherName" class="form-control" id="fatherName" name="fatherName"
+                  [ngClass]="{ 'is-invalid': submitted && f.fatherName.errors }" placeholder="father name" maxlength="50"/>
+                <div *ngIf="submitted && f.fatherName.errors" class="invalid-feedback">
+                  <div *ngIf="f.fatherName.errors.required">Father Name is required</div>
+                </div>
+              </div>
+            </div>           
+            <div class="col-md-4">
+              <app-lookup frmControlName="hQualifId" [formAttribute]="lookupAttribute.FatherQualification"
+                [lookupForm]="addEmployeeForm.get('lookupForm')" [submitted]="submitted"
+                [options]="options.qualification">
+              </app-lookup>
+            </div>           
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="motherName">Mother Name</label><span class="required">*</span>
+                <input type="text" formControlName="motherName" class="form-control" id="motherName" name="motherName"
+                  [ngClass]="{ 'is-invalid': submitted && f.motherName.errors }" placeholder="mother name" maxlength="50"/>
+                <div *ngIf="submitted && f.motherName.errors" class="invalid-feedback">
+                  <div *ngIf="f.motherName.errors.required">Mother Name is required</div>
+                </div>
+              </div>
+            </div> 
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="eContactName">Contact Name</label>
+                <input type="text" formControlName="eContactName" class="form-control" id="eContactName"
+                  name="eContactName" [ngClass]="{ 'is-invalid': submitted && f.eContactName.errors }"
+                  placeholder="emergency name" maxlength="50"/>
+                <div *ngIf="submitted && f.eContactName.errors" class="invalid-feedback">
+                  <div *ngIf="f.eContactName.errors.required">Contact Name is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="eContactNo">Contact No</label>
+                <input type="text" formControlName="eContactNo" class="form-control" id="eContactNo"
+                  name="eContactNo" [ngClass]="{ 'is-invalid': submitted && f.eContactNo.errors }"
+                  placeholder="emergency no" maxlength="12"/>
+                <div *ngIf="submitted && f.eContactNo.errors" class="invalid-feedback">
+                  <div *ngIf="f.eContactNo.errors.required">Contact No is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <app-lookup frmControlName="branchId" [formAttribute]="lookupAttribute.Branch"
+                [lookupForm]="addEmployeeForm.get('lookupForm')" [submitted]="submitted" [options]="options.branch"
+                [isRequired]="true">
+              </app-lookup>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="eContactNameNo">Email</label>
+                <input type="text" formControlName="emailId" class="form-control" id="emailId"
+                  name="emailId" [ngClass]="{ 'is-invalid': submitted && f.emailId.errors }"
+                  placeholder="email" maxlength="20"/>
+                <div *ngIf="submitted && f.emailId.errors" class="invalid-feedback">
+                  <div *ngIf="f.emailId.errors.required">Email is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="personalEmailId">Personal Email</label>
+                <input type="text" formControlName="personalEmailId" class="form-control" id="email"
+                  name="personalEmailId" [ngClass]="{ 'is-invalid': submitted && f.personalEmailId.errors }"
+                  placeholder="email" maxlength="20"/>
+                <div *ngIf="submitted && f.personalEmailId.errors" class="invalid-feedback">
+                  <div *ngIf="f.personalEmailId.errors.required">Personal Email is required</div>
+                </div>
+              </div>
+            </div>  
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="passportNo">Passport No</label>
+                <input numeric type="text" formControlName="passportNo" class="form-control" id="passportNo" name="passportNo"
+                  [ngClass]="{ 'is-invalid': submitted && f.passportNo.errors }" placeholder="Passport No"
+                  maxlength="12" />
+                <div *ngIf="submitted && f.passportNo.errors" class="invalid-feedback">
+                  <div *ngIf="f.passportNo.errors.required">Passport No is required</div>
+                </div>
+              </div>
+            </div>         
+          </div>
+        </div>    
+        <div class="panel panel-primary">
+          <div class="panel-heading">Current Address</div>
+          <div class="panel-body">
+            <app-address [addressForm]="addEmployeeForm.get('permanentAddressForm')" [submitted]="submitted">
+            </app-address>
+          </div>
+        </div>
+        <!-- <div class="panel panel-primary">
+          <div class="panel-heading">Current Address</div>
+          <div class="panel-body">
+            <app-address [addressForm]="addEmployeeForm.get('currentAddressForm')" [submitted]="submitted">
+            </app-address>
+          </div>
+        </div> -->       
+        <div class="panel panel-default" *ngIf="!isReadonly">
+          <div class="panel-body">
+            <div class="col-md-12">
+              <div class="form-group">
+                <button [disabled]="loading" class="btn btn-primary">Save</button>
+                <a (click)="clearItem()" class="btn btn-link">Clear</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+ <!--  <div class="panel panel-success">  </div>
+            <div class="panel panel-info">  </div>
+                <div class="panel panel-warning">  </div>
+                    <div class="panel panel-danger">  </div> -->

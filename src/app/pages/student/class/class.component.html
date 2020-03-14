@@ -1,0 +1,74 @@
+<div class="card">
+    <div class="container">
+        <div class="panel-group">
+            <form [formGroup]="classForm" (ngSubmit)="onSubmit()">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Class</div>
+                    <div class="panel-body">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="class">Class Name</label><span class="required">*</span>
+                                <input #class type="text" formControlName="className" class="form-control"
+                                    id="className" name="className"
+                                    [ngClass]="{ 'is-invalid': submitted && f.className.errors }"
+                                    placeholder="Class Name" maxlength="50"/>
+                                <div *ngIf="submitted && f.className.errors" class="invalid-feedback">
+                                    <div *ngIf="f.className.errors.required">Class Name is required</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="classCode">Class Code</label>
+                                <input type="text" formControlName="classCode" class="form-control" id="classCode"
+                                    name="classCode" [ngClass]="{ 'is-invalid': submitted && f.classCode.errors }"
+                                    placeholder="Class Code" maxlength="10"/>
+                                <div *ngIf="submitted && f.classCode.errors" class="invalid-feedback">
+                                    <div *ngIf="f.classCode.errors.required">Class Code is required</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="isSection" class="form-check-label">
+                                    <input style="padding-left: 10px;" id="isSection" type="checkbox"
+                                        formControlName="isSection" [value]="true"
+                                        checked="isSection === true">IsSection
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label for="class">Sections</label>
+                                <ng-multiselect-dropdown [placeholder]="'Select Section'" [data]="sectionOptions"
+                                    formControlName="sectionIds" [settings]="dropdownSettings">
+                                </ng-multiselect-dropdown>
+                            </div>
+                            <div class="form-group">
+                                <label for="isActiveTrue" class="form-check-label" style="padding-right: 10px;">
+                                    <input id="isActiveTrue" type="radio" formControlName="isActive" [value]="true"
+                                        checked="isActive === true">Active
+                                </label>
+                                <label for="isActiveFalse" class="form-check-label">
+                                    <input id="isActiveFalse" type="radio" formControlName="isActive" [value]="false"
+                                        checked="isActive === false">In-Active
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <button [disabled]="loading" class="btn btn-primary">Save</button>
+                                <a (click)="clearItem()" class="btn btn-link">Clear</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="panel-group">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Class List</div>
+                <div class="panel-body">
+                    <div class="col-md-9">
+                        <ag-grid-angular #agGrid style="height: 300px; padding-bottom: 10px" class="ag-theme-balham"
+                            [rowData]="rowData" [columnDefs]="columnDefs" [rowSelection]="rowSelection"
+                            (selectionChanged)="onSelectionChanged($event)" (gridReady)="onGridReady($event)">
+                        </ag-grid-angular>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

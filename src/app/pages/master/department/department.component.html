@@ -1,0 +1,61 @@
+<div class="card">
+    <div class="container">
+        <div class="panel-group">
+            <form [formGroup]="deptForm" (ngSubmit)="onSubmit()">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Department</div>
+                    <div class="panel-body">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="deptName">Department</label><span class="required">*</span>
+                                <input #department type="text" formControlName="deptName" class="form-control"
+                                    id="deptName" name="deptName"
+                                    [ngClass]="{ 'is-invalid': submitted && f.deptName.errors }"
+                                    placeholder="Department" maxlength="50" />
+                                <div *ngIf="submitted && f.deptName.errors" class="invalid-feedback">
+                                    <div *ngIf="f.deptName.errors.required">Department is required</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="deptCode">Dept Code</label><span class="required">*</span>
+                                <input type="text" formControlName="deptCode" class="form-control" id="deptCode"
+                                    name="deptCode" [ngClass]="{ 'is-invalid': submitted && f.deptCode.errors }"
+                                    placeholder="Dept Code" maxlength="10" title="Short Name" />
+                                <div *ngIf="submitted && f.deptCode.errors" class="invalid-feedback">
+                                    <div *ngIf="f.deptCode.errors.required">Dept Code is required</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="isActiveTrue" class="form-check-label" style="padding-right: 10px;">
+                                    <input id="isActiveTrue" type="radio" formControlName="isActive" [value]="true"
+                                        checked="isActive === true">Active
+                                </label>
+                                <label for="isActiveFalse" class="form-check-label">
+                                    <input id="isActiveFalse" type="radio" formControlName="isActive" [value]="false"
+                                        checked="isActive === false">In-Active
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <button [disabled]="loading" class="btn btn-primary">Save</button>
+                                <a (click)="clearItem()" class="btn btn-link">Clear</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="panel-group">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Department List</div>
+                <div class="panel-body">
+                    <div class="col-md-9">
+                        <ag-grid-angular #agGrid style="height: 300px; padding-bottom: 10px" class="ag-theme-balham"
+                            [rowData]="rowData" [columnDefs]="columnDefs" [rowSelection]="rowSelection"
+                            (selectionChanged)="onSelectionChanged($event)" (gridReady)="onGridReady($event)">
+                        </ag-grid-angular>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>

@@ -1,0 +1,71 @@
+<div class="card">
+    <div class="container">
+        <div class="panel-group">
+            <form [formGroup]="prodSubCatForm" (ngSubmit)="onSubmit()">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Product Sub Category</div>
+                    <div class="panel-body">
+                        <div class="col-md-6">
+                            <app-lookup frmControlName="prodTypeId" [formAttribute]="prodTypeLookupAtr"
+                                [lookupForm]="prodSubCatForm.get('lookupForm')" [submitted]="submitted"
+                                [options]="prodTypeOptions" [isFocus]="true" (changeLookup)="changeProdType($event)" [isRequired]="true">
+                            </app-lookup>
+                            <app-lookup frmControlName="prodCatId" [formAttribute]="prodCatLookupAtr"
+                                [lookupForm]="prodSubCatForm.get('lookupForm')" [submitted]="submitted"
+                                [options]="prodCatOptions" [isRequired]="true">
+                            </app-lookup>
+                            <div class="form-group">
+                                <label for="prodSubCatName">Sub Category</label><span class="required">*</span>
+                                <input type="text" formControlName="prodSubCatName" class="form-control"
+                                    id="prodSubCatName" name="prodSubCatName"
+                                    [ngClass]="{ 'is-invalid': submitted && f.prodSubCatName.errors }"
+                                    placeholder="sub category" maxlength="50" />
+                                <div *ngIf="submitted && f.prodSubCatName.errors" class="invalid-feedback">
+                                    <div *ngIf="f.prodSubCatName.errors.required">Sub Category is required</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="prodSubCatCode">Sub Category Code</label><span class="required">*</span>
+                                <input type="text" formControlName="prodSubCatCode" class="form-control"
+                                    id="prodSubCatCode" name="prodSubCatCode"
+                                    [ngClass]="{ 'is-invalid': submitted && f.prodSubCatCode.errors }"
+                                    placeholder="sub category code" maxlength="10" title="Short Name" />
+                                <div *ngIf="submitted && f.prodSubCatCode.errors" class="invalid-feedback">
+                                    <div *ngIf="f.prodSubCatCode.errors.required">Sub Category code is required</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="isActiveTrue" class="form-check-label" style="padding-right: 10px;">
+                                    <input id="isActiveTrue" type="radio" formControlName="isActive" [value]="true"
+                                        checked="isActive === true">Active
+                                </label>
+                                <label for="isActiveFalse" class="form-check-label">
+                                    <input id="isActiveFalse" type="radio" formControlName="isActive" [value]="false"
+                                        checked="isActive === false">In-Active
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <button [disabled]="loading" class="btn btn-primary">Save</button>
+                                <a (click)="clearItem()" class="btn btn-link">Clear</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="panel-group">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Product Sub Category List</div>
+                <div class="panel-body">
+                    <div class="col-md-12">
+                        <ag-grid-angular #agGrid style="height: 300px; padding-bottom: 10px" class="ag-theme-balham"
+                            [rowData]="rowData" [columnDefs]="columnDefs" [rowSelection]="rowSelection"
+                            (selectionChanged)="onSelectionChanged($event)" (gridReady)="onGridReady($event)">
+                        </ag-grid-angular>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

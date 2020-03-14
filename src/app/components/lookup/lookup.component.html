@@ -1,0 +1,15 @@
+<div [formGroup]="lookupForm">
+    <div class="form-group">
+        <label [for]="formAttribute.id" [id]="formAttribute.labelId">{{formAttribute.label}}</label><span *ngIf="isRequired" class="required">*</span>
+        <select #dropdown [id]="formAttribute.id" [name]="formAttribute.name" class="form-control" [formControlName]="frmControlName"
+            (change)="changeDropdown($event)" [ngClass]="{ 'is-invalid': submitted && f.errors}">
+            <option value="0">--Select--</option>
+            <option *ngFor="let item of options" [value]="item.itemKey">
+                {{item.itemValue}}
+            </option>
+        </select>        
+        <div *ngIf="submitted && f.errors" class="invalid-feedback">
+            <div *ngIf="f.errors">{{formAttribute.label}} is required</div>
+        </div>
+    </div>
+</div>

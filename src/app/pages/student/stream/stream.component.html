@@ -1,0 +1,51 @@
+<div class="card">
+    <div class="container">
+        <div class="panel-group">
+            <form [formGroup]="streamForm" (ngSubmit)="onSubmit()">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Stream</div>
+                    <div class="panel-body">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="streamName">Stream Name</label>
+                                <input #streamName type="text" formControlName="streamName" class="form-control"
+                                    id="Stream" name="streamName"
+                                    [ngClass]="{ 'is-invalid': submitted && f.streamName.errors }"
+                                    placeholder="Stream" />
+                                <div *ngIf="submitted && f.streamName.errors" class="invalid-feedback">
+                                    <div *ngIf="f.streamName.errors.required">Stream Name is required</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="streamCode">Stream Code</label>
+                                <input type="text" formControlName="streamCode" class="form-control" id="streamCode"
+                                    name="streamCode" [ngClass]="{ 'is-invalid': submitted && f.streamCode.errors }"
+                                    placeholder="Stream Code" />
+                                <div *ngIf="submitted && f.streamCode.errors" class="invalid-feedback">
+                                    <div *ngIf="f.streamCode.errors.required">Comp Code is required</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button [disabled]="loading" class="btn btn-primary">Save</button>
+                                <a (click)="clearItem()" class="btn btn-link">Clear</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="panel-group">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Stream List</div>
+                <div class="panel-body">
+                    <div class="col-md-12">
+                        <ag-grid-angular #agGrid style="height: 300px; padding-bottom: 10px" class="ag-theme-balham"
+                            [rowData]="rowData" [columnDefs]="columnDefs" [rowSelection]="rowSelection"
+                            (selectionChanged)="onSelectionChanged($event)" (gridReady)="onGridReady($event)">
+                        </ag-grid-angular>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

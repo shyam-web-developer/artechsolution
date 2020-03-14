@@ -1,0 +1,30 @@
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <form [formGroup]="secForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label for="section">Section</label>
+                        <input #section type="text" formControlName="section" class="form-control" id="section"
+                            name="section" [ngClass]="{ 'is-invalid': submitted && f.section.errors }" placeholder="Section"/>
+                        <div *ngIf="submitted && f.section.errors" class="invalid-feedback">
+                            <div *ngIf="f.section.errors.required">Section is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="sectionCode">Section Code</label>
+                        <input type="text" formControlName="sectionCode" class="form-control" id="sectionCode"
+                            name="sectionCode" [ngClass]="{ 'is-invalid': submitted && f.sectionCode.errors }" placeholder="Section Code"/>
+                        <div *ngIf="submitted && f.sectionCode.errors" class="invalid-feedback">
+                            <div *ngIf="f.sectionCode.errors.required">Section Code is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button [disabled]="loading" class="btn btn-primary">Save</button>
+                        <a (click)="clearItem()" class="btn btn-link">Clear</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

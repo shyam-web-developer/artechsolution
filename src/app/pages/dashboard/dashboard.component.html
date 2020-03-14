@@ -1,0 +1,19 @@
+<div class="card">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-10">
+        <div class="grid-row-header">Registered User</div>
+        <ag-grid-angular style="height: 400px;" class="ag-theme-balham" [rowData]="rowData" [columnDefs]="columnDefs">
+        </ag-grid-angular>
+      </div>
+      <div class="col-md-10">
+        <div class="grid-row-header">Registered Employee</div>
+        <ag-grid-angular style="height: 400px;" class="ag-theme-balham" [rowData]="rowData" [columnDefs]="columnDefs">
+        </ag-grid-angular>
+        <div *ngFor="let hero of rowData">
+            <span>{{hero.firstName | uppercase}} - {{hero.lastName | lowercase }} - {{hero.userId | currency}}</span>        
+          </div>
+      </div>      
+    </div>
+  </div>
+</div>

@@ -1,0 +1,65 @@
+<div class="card">
+    <div class="container">
+        <div class="panel-group">
+            <form [formGroup]="sessionForm" (ngSubmit)="onSubmit()">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Session</div>
+                    <div class="panel-body">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="fromDate">From Date</label>
+                                <ng2-flatpickr #startPicker placeholder="From Date" formControlName="fromDate"
+                                    [config]="fromDateOptions"></ng2-flatpickr>
+                                <div *ngIf="submitted && f.fromDate.errors" class="invalid-feedback">
+                                    <div *ngIf="f.fromDate.errors.required">From Date is required</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="toDate">To Date</label>
+                                <ng2-flatpickr #endPicker placeholder="To Date" formControlName="toDate"
+                                    [config]="toDateOptions"></ng2-flatpickr>
+                                <div *ngIf="submitted && f.toDate.errors" class="invalid-feedback">
+                                    <div *ngIf="f.toDate.errors.required">To Date is required</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="sessionName">Session Name</label>
+                                <div>
+                                    <span class="session-span">{{f.sessionName && f.sessionName.value ? f.sessionName.value : ''}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="isActiveTrue" class="form-check-label" style="padding-right: 10px;">
+                                    <input id="isActiveTrue" type="radio" formControlName="isActive" [value]="true"
+                                        checked="isActive === true">Active
+                                </label>
+                                <label for="isActiveFalse" class="form-check-label">
+                                    <input id="isActiveFalse" type="radio" formControlName="isActive" [value]="false"
+                                        checked="isActive === false">In-Active
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <button [disabled]="loading" class="btn btn-primary">Save</button>
+                                <a (click)="clearItem()" class="btn btn-link">Clear</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--  <save-cancel-delete-button [isReadonly]="isReadonly"></save-cancel-delete-button> -->
+            </form>
+        </div>
+        <div class="panel-group">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Session List</div>
+                <div class="panel-body">
+                    <div class="col-md-12">                        
+                        <ag-grid-angular #agGrid style="height: 300px; padding-bottom: 10px" class="ag-theme-balham" [rowData]="rowData"
+                            [columnDefs]="columnDefs" [rowSelection]="rowSelection"
+                            (selectionChanged)="onSelectionChanged($event)" (gridReady)="onGridReady($event)">
+                        </ag-grid-angular>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

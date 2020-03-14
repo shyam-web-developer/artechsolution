@@ -1,0 +1,8 @@
+.alert {
+  /*   padding-top: 75px !important; */
+    padding-left: 10px !important;    
+  /*   margin-bottom: -60px; */
+    border: 1px solid transparent;
+    border-radius: 4px;
+    position: relative;
+}

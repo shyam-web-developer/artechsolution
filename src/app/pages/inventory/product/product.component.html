@@ -1,0 +1,158 @@
+<div class="card">
+    <div class="container">
+        <div class="panel-group">
+            <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Product</div>
+                    <div class="panel-body">
+                        <div class="col-md-6">
+                            <app-lookup frmControlName="prodTypeId" [formAttribute]="lookupAttribute.ProductType"
+                                [lookupForm]="productForm.get('lookupForm')" [submitted]="submitted"
+                                [options]="options.prodTypes" [isFocus]="true" (changeLookup)="changeProdType($event)"
+                                [isRequired]="true">
+                            </app-lookup>
+                        </div>
+                        <div class="col-md-6">
+                            <app-lookup frmControlName="prodCatId" [formAttribute]="lookupAttribute.ProdCategory"
+                                [lookupForm]="productForm.get('lookupForm')" [submitted]="submitted"
+                                [options]="options.prodCats" (changeLookup)="changeProdCat($event)" [isRequired]="true">
+                            </app-lookup>
+                        </div>
+                        <div class="col-md-6">
+                            <app-lookup frmControlName="prodSubCatId"
+                                [formAttribute]="lookupAttribute.ProductSubCategory"
+                                [lookupForm]="productForm.get('lookupForm')" [submitted]="submitted" [isRequired]="true"
+                                [options]="options.prodSubCats" [isRequired]="true">
+                            </app-lookup>
+                        </div>
+                        <div class="col-md-6">
+                            <app-lookup frmControlName="unitId" [formAttribute]="lookupAttribute.Unit"
+                                [lookupForm]="productForm.get('lookupForm')" [submitted]="submitted"
+                                [options]="options.units" [isRequired]="true">
+                            </app-lookup>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="prodName">Product Name</label><span class="required">*</span>
+                                <input type="text" formControlName="prodName" class="form-control" id="prodName"
+                                    name="prodName" [ngClass]="{ 'is-invalid': submitted && f.prodName.errors }"
+                                    placeholder="Product Name" maxlength="50" />
+                                <div *ngIf="submitted && f.prodName.errors" class="invalid-feedback">
+                                    <div *ngIf="f.prodName.errors.required">Product Name is required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="prodCode">Product Code</label><span class="required">*</span>
+                                <input type="text" formControlName="prodCode" class="form-control" id="prodCode"
+                                    name="prodCode" [ngClass]="{ 'is-invalid': submitted && f.prodCode.errors }"
+                                    placeholder="Product Code" maxlength="20" title="Short Name" />
+                                <div *ngIf="submitted && f.prodCode.errors" class="invalid-feedback">
+                                    <div *ngIf="f.prodCode.errors.required">Prod Code is required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="prodDesc">Product Desc</label><span class="required">*</span>
+                                <input type="text" formControlName="prodDesc" class="form-control" id="prodDesc"
+                                    name="prodDesc" [ngClass]="{ 'is-invalid': submitted && f.prodDesc.errors }"
+                                    placeholder="Product Desc" maxlength="200" title="Short Name" />
+                                <div *ngIf="submitted && f.prodDesc.errors" class="invalid-feedback">
+                                    <div *ngIf="f.prodDesc.errors.required">Prod Code is required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="shortName">Short Name</label><span class="required">*</span>
+                                <input type="text" formControlName="shortName" class="form-control" id="shortName"
+                                    name="shortName" [ngClass]="{ 'is-invalid': submitted && f.shortName.errors }"
+                                    placeholder="Short Name" maxlength="20" title="Short Name" />
+                                <div *ngIf="submitted && f.shortName.errors" class="invalid-feedback">
+                                    <div *ngIf="f.shortName.errors.required">Short Name is required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="cGST">CGST</label><span class="required">*</span>
+                                <input  type="text" numeric decimals="2" formControlName="cGST" class="form-control" id="cGST" name="cGST"
+                                    [ngClass]="{ 'is-invalid': submitted && f.cGST.errors }" placeholder="CGST"
+                                    maxlength="20" title="Short Name" />
+                                <div *ngIf="submitted && f.cGST.errors" class="invalid-feedback">
+                                    <div *ngIf="f.cGST.errors.required">CGST is required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="sGST">SGST</label><span class="required">*</span>
+                                <input type="text" numeric decimals="2" formControlName="sGST" class="form-control" id="sGST" name="sGST"
+                                    [ngClass]="{ 'is-invalid': submitted && f.sGST.errors }" placeholder="SGST"
+                                    maxlength="20" title="Short Name" />
+                                <div *ngIf="submitted && f.sGST.errors" class="invalid-feedback">
+                                    <div *ngIf="f.sGST.errors.required">SGST is required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="mrp">MRP</label><span class="required">*</span>
+                                <input type="text" numeric decimals="2" formControlName="mrp" class="form-control" id="listPrice"
+                                    name="mrp" [ngClass]="{ 'is-invalid': submitted && f.mrp.errors }"
+                                    placeholder="MRP" maxlength="20" />
+                                <div *ngIf="submitted && f.mrp.errors" class="invalid-feedback">
+                                    <div *ngIf="f.mrp.errors.required">MRP is required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="salePrice">Sale Price</label>
+                                <input numeric decimals="2" type="text" formControlName="salePrice" class="form-control" id="salePrice"
+                                    name="salePrice" [ngClass]="{ 'is-invalid': submitted && f.salePrice.errors }"
+                                    placeholder="Sale Price" maxlength="10" />
+                                <div *ngIf="submitted && f.salePrice.errors" class="invalid-feedback">
+                                    <div *ngIf="f.salePrice.errors.required">Sale Price is required</div>
+                                </div>
+                            </div>
+                        </div>                       
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="isActiveTrue" class="form-check-label" style="padding-right: 10px;">
+                                    <input id="isActiveTrue" type="radio" formControlName="isActive" [value]="true"
+                                        checked="isActive === true">Active
+                                </label>
+                                <label for="isActiveFalse" class="form-check-label">
+                                    <input id="isActiveFalse" type="radio" formControlName="isActive" [value]="false"
+                                        checked="isActive === false">In-Active
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <button [disabled]="loading || isReadonly" class="btn btn-primary">Save</button>
+                                <a (click)="clearItem()" class="btn btn-link">Clear</a>
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="panel-group">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Product List</div>
+            <div class="panel-body">
+                <div class="col-md-12">
+                    <ag-grid-angular #agGrid style="height: 300px; padding-bottom: 10px" class="ag-theme-balham"
+                        [rowData]="rowData" [columnDefs]="columnDefs" [rowSelection]="rowSelection"
+                        (selectionChanged)="onSelectionChanged($event)" (gridReady)="onGridReady($event)">
+                    </ag-grid-angular>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

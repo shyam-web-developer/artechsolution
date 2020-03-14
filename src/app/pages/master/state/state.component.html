@@ -1,0 +1,57 @@
+<div class="card">
+    <div class="container">
+        <div class="panel-group">
+            <form [formGroup]="stateForm" (ngSubmit)="onSubmit()">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">State</div>
+                    <div class="panel-body">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <app-lookup frmControlName="countryId" [formAttribute]="countryLookupAtr"
+                                    [lookupForm]="stateForm.get('lookupForm')" [submitted]="submitted"
+                                    [options]="countryOptions" [isRequired]="true">
+                                </app-lookup>
+                            </div>
+                            <div class="form-group">
+                                <label for="stateName">State</label><span class="required">*</span>
+                                <input #stateName type="text" formControlName="stateName" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted && f.stateName.errors }" maxlength="50"
+                                    placeholder="State Name" />
+                                <div *ngIf="submitted && f.stateName.errors" class="invalid-feedback">
+                                    <div *ngIf="f.stateName.errors.required">State is required</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="isActiveTrue" class="form-check-label" style="padding-right: 10px;">
+                                    <input id="isActiveTrue" type="radio" formControlName="isActive" [value]="true"
+                                        checked="isActive === true">Active
+                                </label>
+                                <label for="isActiveFalse" class="form-check-label">
+                                    <input id="isActiveFalse" type="radio" formControlName="isActive" [value]="false"
+                                        checked="isActive === false">In-Active
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <button [disabled]="loading" class="btn btn-primary">Save</button>
+                                <a (click)="clearItem()" class="btn btn-link">Clear</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="panel-group">
+            <div class="panel panel-primary">
+                <div class="panel-heading">State List</div>
+                <div class="panel-body">
+                    <div class="col-md-9">
+                        <ag-grid-angular #agGrid style="height: 300px; padding-bottom: 10px" class="ag-theme-balham"
+                            [rowData]="rowData" [columnDefs]="columnDefs" [rowSelection]="rowSelection"
+                            (selectionChanged)="onSelectionChanged($event)" (gridReady)="onGridReady($event)">
+                        </ag-grid-angular>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

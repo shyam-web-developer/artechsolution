@@ -1,0 +1,86 @@
+<div class="card">
+    <div class="container">
+        <div class="panel-group">
+            <form [formGroup]="feeStructureForm">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Fee Structure</div>
+                    <div class="panel-body">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 100px !important;">
+                                                Comp Name
+                                            </th>
+                                            <th *ngFor="let item of options.classes">
+                                                {{item.itemValue}}
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody formArrayName="compForm">
+                                        <tr *ngFor="let row of compForm.controls; let i = index" formGroupName="{{i}}">
+                                            <td><label>{{row.value.compName}}</label></td>   
+                                            <div formArrayName="classForm">                                                                                
+                                            <td *ngFor="let item of row.get('classForm').controls; let j = index" formGroupName="{{j}}">
+                                                <input numeric type="text" formControlName="amount" maxlength="8">                                                
+                                            </td> 
+                                        </div>                                      
+                                        </tr>                                       
+                                    </tbody>
+                                </table>
+                            </div>                            
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <button class="btn btn-primary" (click)="saveFeestructure()">Save</button>
+                                <a (click)="refreshFeestructure()" class="btn btn-link">Refresh</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+            </form>           
+        </div>          
+        <div class="panel-group">
+            <form [formGroup]="feeInstallmentSetupForm">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Component Installment Setup</div>
+                    <div class="panel-body">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 100px !important;">
+                                                Installment
+                                            </th>
+                                            <th *ngFor="let item of options.feeInstallments">
+                                                {{item.itemValue}}
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody formArrayName="compInstallForm">
+                                        <tr *ngFor="let row of compInstallForm.controls; let j = index" formGroupName="{{j}}">
+                                            <td><label>{{row.value.compName}}</label></td>   
+                                            <div formArrayName="installmentForm">                                                                                
+                                            <td *ngFor="let item of row.get('installmentForm').controls; let k = index" formGroupName="{{k}}">
+                                                <input type="checkbox" formControlName="isToPaid">                                                
+                                            </td> 
+                                        </div>                                      
+                                        </tr>                                       
+                                    </tbody>
+                                </table>
+                            </div>                            
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <button class="btn btn-primary" (click)="saveInstallmentSetup()">Save</button>
+                               <!--  <a (click)="refreshInstallment()" class="btn btn-link">Refresh</a> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+            </form>           
+        </div> 
+    </div>
+</div>

@@ -1,0 +1,10 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'assets/css/animate.min.css';
+@import 'assets/css/bootstrap.min.css';
+@import 'assets/css/font-awesome.min.css';
+@import 'http://fonts.googleapis.com/css?family=Raleway:400,300,700,800';
+@import 'https://fonts.googleapis.com/icon?family=Material+Icons';
+@import 'ag-grid-community/dist/styles/ag-grid.css';
+@import 'ag-grid-community/dist/styles/ag-theme-balham.css';
+@import 'assets/css/style.css';
+@import 'assets/css/toastr.css';

@@ -1,0 +1,27 @@
+.column1  {
+    float: left;
+    width: 60%;
+    margin-right: 5px !important;
+    margin-left: 18px !important;
+  }
+  .column2  {
+    float: left;
+    width: 35%;
+    margin-right: 5px !important;
+    margin-left: 18px !important;
+  }
+  
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  @media (min-width: 768px){
+    .col-md-12 {
+        padding-left: 0px;
+    }
+  }
+
+  thead {color:green; width:50%}  tbody {color:blue;}  tfoot {color:red;}  table, th, td {    border: 1px solid black;  } #unitId {width : 80px}

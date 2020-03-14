@@ -1,0 +1,61 @@
+<div class="card">
+    <div class="container">
+        <div class="panel-group">
+            <form [formGroup]="desigForm" (ngSubmit)="onSubmit()">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Designation</div>
+                    <div class="panel-body">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="degName">Designation</label>
+                                <input #designation type="text" formControlName="degName" class="form-control"
+                                    id="degName" name="degName"
+                                    [ngClass]="{ 'is-invalid': submitted && f.degName.errors }"
+                                    placeholder="Designation" maxlength="50" />
+                                <div *ngIf="submitted && f.degName.errors" class="invalid-feedback">
+                                    <div *ngIf="f.degName.errors.required">Designation is required</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="degCode">Deg Code</label>
+                                <input type="text" formControlName="degCode" class="form-control" id="degCode"
+                                    name="degCode" [ngClass]="{ 'is-invalid': submitted && f.degCode.errors }"
+                                    placeholder="Deg Code" maxlength="10" title="Short Name" />
+                                <div *ngIf="submitted && f.degCode.errors" class="invalid-feedback">
+                                    <div *ngIf="f.degCode.errors.required">Deg Code is required</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="isActiveTrue" class="form-check-label" style="padding-right: 10px;">
+                                    <input id="isActiveTrue" type="radio" formControlName="isActive" [value]="true"
+                                        checked="isActive === true">Active
+                                </label>
+                                <label for="isActiveFalse" class="form-check-label">
+                                    <input id="isActiveFalse" type="radio" formControlName="isActive" [value]="false"
+                                        checked="isActive === false">In-Active
+                                </label>
+                            </div>
+                            <div *ngIf="!isReadonly" class="form-group">
+                                <button [disabled]="loading || isReadonly" class="btn btn-primary">Save</button>
+                                <a (click)="clearItem()" class="btn btn-link">Clear</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="panel-group">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Designation List</div>
+                <div class="panel-body">
+                    <div class="col-md-9">
+                        <ag-grid-angular #agGrid style="height: 300px; padding-bottom: 10px" class="ag-theme-balham"
+                            [rowData]="rowData" [columnDefs]="columnDefs" [rowSelection]="rowSelection"
+                            (selectionChanged)="onSelectionChanged($event)" (gridReady)="onGridReady($event)">
+                        </ag-grid-angular>
+                    </div>
+                </div>
+            </div>
+        </div>      
+    </div>
+</div>

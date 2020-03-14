@@ -1,0 +1,80 @@
+<div [formGroup]="addressForm">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="address1">Address</label><span class="required">*</span>
+            <input type="text" formControlName="address1" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f.address1.errors }" />
+            <div *ngIf="submitted && f.address1.errors" class="invalid-feedback">
+                <div *ngIf="f.address1.errors.required">Address is required</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="address2">Address 1</label>
+            <input type="text" formControlName="address2" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f.address2.errors }" />
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="landmark">Landmark</label>
+            <input type="text" formControlName="landmark" class="form-control" maxlength="50"/>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="country">Country</label><span class="required">*</span>
+            <select id="country" name="country" class="form-control" formControlName="countryId"
+                (change)="changeCountry($event)" [ngClass]="{ 'is-invalid': submitted && f.countryId.errors}">
+                <option value="0">--Select--</option>
+                <option *ngFor="let item of countryOptions" [value]="item.itemKey">
+                    {{item.itemValue}}
+                </option>
+            </select>
+            <div *ngIf="submitted && f.countryId.errors" class="invalid-feedback">
+                <div *ngIf="f.countryId.errors">Country is required</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="state">State</label><span class="required">*</span>
+            <select id="state" name="state" class="form-control" formControlName="stateId"
+                (change)="changeState($event)" [ngClass]="{ 'is-invalid': submitted && f.stateId.errors}">
+                <option value="0">--Select--</option>
+                <option *ngFor="let item of stateOptions" [value]="item.itemKey">
+                    {{item.itemValue}}
+                </option>
+            </select>
+            <div *ngIf="submitted && f.stateId.errors" class="invalid-feedback">
+                <div *ngIf="f.stateId.errors">State is required</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="city">City</label><span class="required">*</span>
+            <select id="city" name="city" class="form-control" formControlName="cityId"
+                [ngClass]="{ 'is-invalid': submitted && f.cityId.errors}">
+                <option value="0">--Select--</option>
+                <option *ngFor="let item of cityOptions" [value]="item.itemKey">
+                    {{item.itemValue}}
+                </option>
+            </select>
+            <div *ngIf="submitted && f.cityId.errors" class="invalid-feedback">
+                <div *ngIf="f.cityId.errors">City is required</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="pinCode">Pincode</label><span class="required">*</span>
+            <input numeric type="text" formControlName="pinCode" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f.pinCode.errors }" maxlength="6"/>
+            <div *ngIf="submitted && f.pinCode.errors" class="invalid-feedback">
+                <div *ngIf="f.pinCode.errors.required">Pincode is required</div>
+            </div>
+        </div>
+    </div>
+</div>
